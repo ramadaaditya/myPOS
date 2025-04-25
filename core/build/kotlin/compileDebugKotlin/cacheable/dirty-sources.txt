@@ -1,0 +1,6 @@
+C:\Users\Ramados\Documents\Projects\findest\core\src\main\java\com\example\core\utils\Dummy.kt
+C:\Users\Ramados\Documents\Projects\findest\core\src\main\java\com\example\core\utils\NetworkCheckerImpl.kt
+C:\Users\Ramados\Documents\Projects\findest\core\src\main\java\com\example\core\repository\UserRepository.kt
+C:\Users\Ramados\Documents\Projects\findest\core\src\main\java\com\example\core\utils\UiState.kt
+C:\Users\Ramados\Documents\Projects\findest\core\src\main\java\com\example\core\repository\ProductRepository.kt
+C:\Users\Ramados\Documents\Projects\findest\core\src\main\java\com\example\core\utils\Ext.kt
