@@ -29,7 +29,7 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.example.findest.R
-import com.example.findest.model.Product
+import com.example.findest.data.model.Product
 import com.example.findest.ui.theme.FindestTheme
 import com.example.findest.utils.dummyProducts
 

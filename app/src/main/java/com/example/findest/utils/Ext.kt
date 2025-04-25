@@ -1,7 +1,7 @@
 package com.example.findest.utils
 
-import com.example.findest.model.Product
-import com.example.findest.model.remote.response.ProductsItem
+import com.example.findest.data.model.Product
+import com.example.findest.data.remote.response.ProductsItem
 import com.example.findest.ui.navigation.Screen
 
 fun ProductsItem.toProductEntity(): Product {

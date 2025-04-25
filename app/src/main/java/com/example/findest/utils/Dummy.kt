@@ -1,7 +1,7 @@
 package com.example.findest.utils
 
-import com.example.findest.model.Product
-import com.example.findest.model.ProductInCart
+import com.example.findest.data.model.Product
+import com.example.findest.data.model.ProductInCart
 
 
 val dummyProducts = listOf(

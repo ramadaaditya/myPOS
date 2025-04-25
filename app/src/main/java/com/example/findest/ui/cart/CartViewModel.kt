@@ -2,8 +2,8 @@ package com.example.findest.ui.cart
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.findest.model.ProductInCart
-import com.example.findest.model.repository.ProductRepository
+import com.example.findest.data.model.ProductInCart
+import com.example.findest.data.repository.ProductRepository
 import com.example.findest.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -62,8 +62,12 @@ class CartViewModel @Inject constructor(
                 .catch {
                     _cartItems.value = UiState.Error(it.message ?: "Error")
                 }
-                .collect {
-                    _cartItems.value = UiState.Success(it)
+                .collect { cartItems ->
+                    _cartItems.value = if (cartItems.isEmpty()) {
+                        UiState.Empty
+                    } else {
+                        UiState.Success(cartItems)
+                    }
                 }
         }
     }

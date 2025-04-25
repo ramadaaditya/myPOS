@@ -29,7 +29,7 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import com.example.findest.model.ProductInCart
+import com.example.findest.data.model.ProductInCart
 import com.example.findest.ui.theme.FindestTheme
 import com.example.findest.utils.dummyProductsInCart
 

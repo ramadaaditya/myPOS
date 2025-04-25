@@ -2,9 +2,9 @@ package com.example.findest.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.findest.model.local.AppDatabase
-import com.example.findest.model.local.ProductDao
-import com.example.findest.model.remote.api.ApiService
+import com.example.findest.data.local.AppDatabase
+import com.example.findest.data.local.ProductDao
+import com.example.findest.data.remote.api.ApiService
 import com.example.findest.utils.NetworkChecker
 import com.example.findest.utils.NetworkCheckerImpl
 import dagger.Binds

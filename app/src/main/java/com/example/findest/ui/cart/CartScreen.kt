@@ -1,5 +1,6 @@
 package com.example.findest.ui.cart
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,7 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.findest.model.ProductInCart
+import com.example.findest.data.model.ProductInCart
 import com.example.findest.ui.component.CartItem
 import com.example.findest.ui.component.ConfirmationDialog
 import com.example.findest.ui.component.EmptyState
@@ -48,7 +49,7 @@ fun CartScreen(
 
     when (val state = cartState) {
         is UiState.Loading -> LoadingState()
-        is UiState.Empty -> EmptyState()
+        is UiState.Empty -> EmptyState(message = "Keranjang kosong")
         is UiState.Error -> ErrorState(message = state.message)
 
         is UiState.Success -> {

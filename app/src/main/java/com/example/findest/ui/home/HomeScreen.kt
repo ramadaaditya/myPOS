@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.findest.ui.component.CategoryRow
 import com.example.findest.ui.component.EmptyState
 import com.example.findest.ui.component.ErrorState
 import com.example.findest.ui.component.LoadingState
@@ -29,17 +30,32 @@ fun HomeScreen(
     viewModel: ProductViewModel = hiltViewModel(),
     onDetailClick: (Int) -> Unit
 ) {
-    val productState by viewModel.allProducts.collectAsStateWithLifecycle()
+    val selectedCategory by viewModel.selectedCategory.collectAsStateWithLifecycle()
+    val filteredProducts by viewModel.filteredProducts.collectAsStateWithLifecycle()
+
     val refreshState by viewModel.refreshState.collectAsStateWithLifecycle()
     val isRefreshing by remember {
         derivedStateOf { refreshState is UiState.Loading }
     }
+    val categories = listOf("All", "Audio", "TV", "Mobile", "Gaming", "Appliance")
+
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+        CategoryRow(
+            categories = categories,
+            selectedCategory = selectedCategory,
+            onCategorySelected = { selected ->
+                viewModel.setCategory(selected)},
+            modifier = Modifier.padding(16.dp)
+        )
         PullToRefreshBox(
             isRefreshing = isRefreshing,
-            onRefresh = { viewModel.refreshProductsFromRemote() }
+            onRefresh = {
+                viewModel.refreshProductsFromRemote {
+                    viewModel.filterProductsByCategory(selectedCategory)
+                }
+            }
         ) {
-            when (val state = productState) {
+            when (val state = filteredProducts) {
                 is UiState.Loading -> LoadingState()
                 is UiState.Empty -> EmptyState()
                 is UiState.Error -> ErrorState(message = state.message)

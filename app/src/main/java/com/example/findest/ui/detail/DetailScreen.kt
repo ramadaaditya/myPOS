@@ -41,7 +41,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import com.example.findest.R
-import com.example.findest.model.Product
+import com.example.findest.data.model.Product
 import com.example.findest.ui.component.EmptyState
 import com.example.findest.ui.component.ErrorState
 import com.example.findest.ui.component.LoadingState
