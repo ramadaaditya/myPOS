@@ -37,14 +37,15 @@ fun HomeScreen(
     val isRefreshing by remember {
         derivedStateOf { refreshState is UiState.Loading }
     }
-    val categories = listOf("All", "Audio", "TV", "Mobile", "Gaming", "Appliance")
+    val categories = listOf("All", "Audio", "TV", "Mobile", "Laptop", "Gaming", "Appliances")
 
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         CategoryRow(
             categories = categories,
             selectedCategory = selectedCategory,
             onCategorySelected = { selected ->
-                viewModel.setCategory(selected)},
+                viewModel.setCategory(selected)
+            },
             modifier = Modifier.padding(16.dp)
         )
         PullToRefreshBox(

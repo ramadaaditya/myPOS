@@ -5,9 +5,6 @@ import androidx.room.Room
 import com.example.findest.data.local.AppDatabase
 import com.example.findest.data.local.ProductDao
 import com.example.findest.data.remote.api.ApiService
-import com.example.findest.utils.NetworkChecker
-import com.example.findest.utils.NetworkCheckerImpl
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -44,11 +41,3 @@ object AppModule {
     fun provideProductDao(db: AppDatabase): ProductDao = db.productDao()
 }
 
-@Module
-@InstallIn(SingletonComponent::class)
-abstract class NetworkModule {
-    @Binds
-    abstract fun bindNetworkChecker(
-        impl: NetworkCheckerImpl
-    ): NetworkChecker
-}

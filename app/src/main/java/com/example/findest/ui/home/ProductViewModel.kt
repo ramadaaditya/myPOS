@@ -1,5 +1,6 @@
 package com.example.findest.ui.home
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.findest.data.model.Product
@@ -18,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ProductViewModel @Inject constructor(
     private val repository: ProductRepository,
-    private val networkChecker: NetworkChecker
+    private val networkChecker: NetworkChecker,
 ) : ViewModel() {
     private val _detail = MutableStateFlow<UiState<Product>>(UiState.Empty)
     val detail: StateFlow<UiState<Product>> = _detail
@@ -32,10 +33,15 @@ class ProductViewModel @Inject constructor(
     private val _filteredProducts = MutableStateFlow<UiState<List<Product>>>(UiState.Empty)
     val filteredProducts: StateFlow<UiState<List<Product>>> = _filteredProducts
 
+    @set:VisibleForTesting
+    var autoInit: Boolean = true
+
     init {
-        loadLocalProductsAndFilter("All")
-        refreshProductsFromRemote(showLoading = false) {
-            filterProductsByCategory(_selectedCategory.value)
+        if (autoInit) {
+            loadLocalProductsAndFilter("All")
+            refreshProductsFromRemote {
+                filterProductsByCategory(_selectedCategory.value)
+            }
         }
     }
 
@@ -45,7 +51,6 @@ class ProductViewModel @Inject constructor(
     }
 
     fun refreshProductsFromRemote(
-        showLoading: Boolean = true,
         onSuccess: (() -> Unit)? = null
     ) {
         viewModelScope.launch {
@@ -53,9 +58,7 @@ class ProductViewModel @Inject constructor(
                 _refreshState.value = UiState.Error("Tidak ada koneksi internet")
                 return@launch
             }
-
-            if (showLoading) _refreshState.value = UiState.Loading
-
+            _refreshState.value = UiState.Loading
             when (val remote = repository.getAllProducts()) {
                 is UiState.Success -> {
                     repository.insertAllProductsToLocal(remote.data)

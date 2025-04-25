@@ -1,30 +1,26 @@
 package com.example.findest.data.repository
 
-import android.util.Log
+import com.example.findest.data.local.ProductDao
 import com.example.findest.data.model.Product
 import com.example.findest.data.model.ProductInCart
-import com.example.findest.data.local.ProductDao
 import com.example.findest.data.remote.api.ApiService
 import com.example.findest.utils.UiState
 import com.example.findest.utils.toProductEntity
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class ProductRepository @Inject constructor(
     private val apiService: ApiService,
     private val dao: ProductDao
 ) {
-    suspend fun getAllProducts(): UiState<List<Product>> = withContext(Dispatchers.IO) {
-        return@withContext try {
+    suspend fun getAllProducts(): UiState<List<Product>> {
+        return try {
             val response = apiService.getAllProducts()
             val products = response.products?.mapNotNull { it?.toProductEntity() } ?: emptyList()
             dao.insertAllProduct(products)
             UiState.Success(products)
         } catch (e: Exception) {
-            Log.e("REPOSITORY", "getAllProducts: $e ")
             UiState.Error(e.message ?: "Terjadi kesalahan yang tidak diketahui")
         }
     }
